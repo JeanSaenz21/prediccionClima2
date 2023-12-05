@@ -1,0 +1,28 @@
+{# Load the tag library #}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Predicción de Temperatura</h2>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form| crispy  }}
+      <button type="submit" class="btn btn-primary">Predecir</button>
+    </form>
+
+    {% if predicted_temperature %}
+      <div class="mt-4">
+        <h4>Resultado de la Predicción</h4>
+        <p>La temperatura predicha es: {{ predicted_temperature }}</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
